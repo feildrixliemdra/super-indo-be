@@ -1,8 +1,8 @@
 package dto
 
 import (
-	"go-boilerplate/internal/model"
-	"go-boilerplate/internal/payload"
+	"super-indo-be/internal/model"
+	"super-indo-be/internal/payload"
 )
 
 func CreateUserPayloadToUserModel(p payload.CreateUserRequest) model.User {

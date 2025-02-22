@@ -1,8 +1,8 @@
 package service
 
 import (
-	"go-boilerplate/internal/config"
-	"go-boilerplate/internal/repository"
+	"super-indo-be/internal/config"
+	"super-indo-be/internal/repository"
 )
 
 type Service struct {

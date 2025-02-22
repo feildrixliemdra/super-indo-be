@@ -1,4 +1,4 @@
-module go-boilerplate
+module super-indo-be
 
 go 1.22.0
 

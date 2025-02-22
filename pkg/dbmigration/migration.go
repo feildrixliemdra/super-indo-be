@@ -4,10 +4,11 @@ import (
 	"context"
 	"flag"
 	"fmt"
+	"os"
+	"super-indo-be/internal/config"
+
 	"github.com/pressly/goose/v3"
 	log "github.com/sirupsen/logrus"
-	"go-boilerplate/internal/config"
-	"os"
 )
 
 var (

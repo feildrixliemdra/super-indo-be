@@ -1,16 +1,15 @@
 package http
 
 import (
-	"context"
+	"super-indo-be/internal/bootstrap"
+	"super-indo-be/internal/handler"
+	"super-indo-be/internal/repository"
+	"super-indo-be/internal/server"
+	"super-indo-be/internal/service"
+
 	"github.com/gin-gonic/gin"
 	"github.com/jmoiron/sqlx"
 	log "github.com/sirupsen/logrus"
-	"go-boilerplate/internal/bootstrap"
-	"go-boilerplate/internal/handler"
-	"go-boilerplate/internal/repository"
-	"go-boilerplate/internal/server"
-	"go-boilerplate/internal/service"
-	"go.mongodb.org/mongo-driver/mongo"
 )
 
 // Start function handler starting http listener
@@ -19,7 +18,6 @@ func Start() {
 		cfg         = bootstrap.NewConfig()
 		err         error
 		postgreConn *sqlx.DB
-		mongoDBConn *mongo.Client
 		repo        *repository.Repository
 		hndler      *handler.Handler
 		svc         *service.Service
@@ -39,19 +37,6 @@ func Start() {
 		err = postgreConn.Ping()
 		if err != nil {
 			log.Fatalf("failed to ping PostgreSQL | %v", err)
-		}
-	}
-
-	if cfg.MongoDB.IsEnabled {
-		mongoDBConn, err = bootstrap.InitiateMongoDB(cfg)
-		if err != nil {
-			log.Fatalf("error connect to MongoDB | %v", err)
-		}
-
-		//make sure connected
-		err = mongoDBConn.Ping(context.Background(), nil)
-		if err != nil {
-			log.Fatalf("failed to ping MongoDB | %v", err)
 		}
 	}
 

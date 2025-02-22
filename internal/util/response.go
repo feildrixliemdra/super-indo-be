@@ -2,12 +2,13 @@ package util
 
 import (
 	"errors"
+	"net/http"
+	"super-indo-be/internal/constant"
+	"super-indo-be/internal/payload"
+	val "super-indo-be/internal/validator"
+
 	"github.com/gin-gonic/gin"
 	"github.com/go-playground/validator/v10"
-	"go-boilerplate/internal/constant"
-	"go-boilerplate/internal/payload"
-	val "go-boilerplate/internal/validator"
-	"net/http"
 )
 
 func GeneralSuccessResponse(c *gin.Context, message string, data any) {

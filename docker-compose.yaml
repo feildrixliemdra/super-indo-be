@@ -5,13 +5,13 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    working_dir: /go/src/github.com/feildrixliemdra/go-boilerplate
+    working_dir: /go/src/github.com/feildrixliemdra/super-indo-be
     container_name: my-app
     hostname: my-app
     networks:
       - code-network
     volumes:
-      - .:/go/src/github.com/feildrixliemdra/go-boilerplate
+      - .:/go/src/github.com/feildrixliemdra/super-indo-be
     ports:
       - '8081:8081'
     depends_on:
@@ -24,7 +24,7 @@ services:
     hostname: postgre
     environment:
       POSTGRES_PASSWORD: password
-      POSTGRES_DB: go-boilerplate
+      POSTGRES_DB: super-indo-be
       PGDATA: /data/postgre
       POSTGRES_USER: admin
       TZ: "Asia/Jakarta"

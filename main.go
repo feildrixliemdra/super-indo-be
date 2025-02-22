@@ -1,7 +1,7 @@
 package main
 
 import (
-	"go-boilerplate/cmd"
+	"super-indo-be/cmd"
 )
 
 func main() {

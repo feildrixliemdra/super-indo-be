@@ -1,6 +1,6 @@
 app:
   env: "local"
-  name: "go-boilerplate"
+  name: "super-indo-be"
   port: "8080"
   read_timeout: 5
   write_timeout: 5

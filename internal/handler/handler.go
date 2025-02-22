@@ -1,8 +1,8 @@
 package handler
 
 import (
-	"go-boilerplate/internal/config"
-	"go-boilerplate/internal/service"
+	"super-indo-be/internal/config"
+	"super-indo-be/internal/service"
 )
 
 type Handler struct {

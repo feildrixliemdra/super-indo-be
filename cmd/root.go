@@ -1,10 +1,11 @@
 package cmd
 
 import (
+	"super-indo-be/cmd/http"
+	"super-indo-be/cmd/migration"
+
 	log "github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
-	"go-boilerplate/cmd/http"
-	"go-boilerplate/cmd/migration"
 )
 
 func Start() {

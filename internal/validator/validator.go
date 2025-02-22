@@ -2,15 +2,17 @@ package validator
 
 import (
 	"errors"
+	"super-indo-be/internal/payload"
+
 	"github.com/gin-gonic/gin/binding"
 	"github.com/go-playground/locales/en"
 	ut "github.com/go-playground/universal-translator"
 	en_translations "github.com/go-playground/validator/v10/translations/en"
-	"go-boilerplate/internal/payload"
 
-	"github.com/go-playground/validator/v10"
 	"reflect"
 	"strings"
+
+	"github.com/go-playground/validator/v10"
 )
 
 var TranslatorInst ut.Translator

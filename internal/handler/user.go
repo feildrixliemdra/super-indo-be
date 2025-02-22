@@ -2,14 +2,15 @@ package handler
 
 import (
 	"errors"
+	"super-indo-be/internal/config"
+	"super-indo-be/internal/constant"
+	"super-indo-be/internal/payload"
+	"super-indo-be/internal/service"
+	"super-indo-be/internal/util"
+
 	"github.com/gin-gonic/gin"
 	log "github.com/sirupsen/logrus"
 	"github.com/spf13/cast"
-	"go-boilerplate/internal/config"
-	"go-boilerplate/internal/constant"
-	"go-boilerplate/internal/payload"
-	"go-boilerplate/internal/service"
-	"go-boilerplate/internal/util"
 )
 
 type IUserHandler interface {

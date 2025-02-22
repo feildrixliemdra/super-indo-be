@@ -3,11 +3,11 @@ package service
 import (
 	"context"
 	"fmt"
-	"go-boilerplate/internal/constant"
-	"go-boilerplate/internal/dto"
-	"go-boilerplate/internal/model"
-	"go-boilerplate/internal/payload"
-	"go-boilerplate/internal/repository"
+	"super-indo-be/internal/constant"
+	"super-indo-be/internal/dto"
+	"super-indo-be/internal/model"
+	"super-indo-be/internal/payload"
+	"super-indo-be/internal/repository"
 )
 
 type IUserService interface {

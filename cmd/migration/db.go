@@ -1,8 +1,8 @@
 package migration
 
 import (
-	"go-boilerplate/internal/bootstrap"
-	"go-boilerplate/pkg/dbmigration"
+	"super-indo-be/internal/bootstrap"
+	"super-indo-be/pkg/dbmigration"
 )
 
 func MigrateDatabase() {

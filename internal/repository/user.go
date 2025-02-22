@@ -4,8 +4,9 @@ import (
 	"context"
 	"database/sql"
 	"errors"
+	"super-indo-be/internal/model"
+
 	"github.com/jmoiron/sqlx"
-	"go-boilerplate/internal/model"
 
 	sq "github.com/Masterminds/squirrel"
 )

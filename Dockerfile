@@ -8,10 +8,10 @@ RUN apk update && apk --no-cache add  build-base  git bash  coreutils openssh  o
 
 # this command if you get source from bitbucket repos
 # Create the directory where the application will reside
-RUN mkdir -p /go/src/github.com/feildrixliemdra/go-boilerplate
+RUN mkdir -p /go/src/github.com/feildrixliemdra/super-indo-be
 
 
-WORKDIR /go/src/github.com/feildrixliemdra/go-boilerplate
+WORKDIR /go/src/github.com/feildrixliemdra/super-indo-be
 
 COPY . .
 
@@ -29,8 +29,8 @@ FROM alpine:3.10.2
 # setup package dependencies
 RUN apk --no-cache update && apk --no-cache  add  ca-certificates bash jq curl
 
-ENV BUILDDIR=/go/src/github.com/feildrixliemdra/go-boilerplate
-ENV PROJECT_DIR=/opt/go-boilerplate
+ENV BUILDDIR=/go/src/github.com/feildrixliemdra/super-indo-be
+ENV PROJECT_DIR=/opt/super-indo-be
 
 # Setting timezone
 ENV TZ=Asia/Jakarta
@@ -43,9 +43,9 @@ RUN #mkdir -p $PROJECT_DIR/database/migration
 
 WORKDIR $PROJECT_DIR
 
-COPY --from=builder $BUILDDIR/go-boilerplate go-boilerplate
+COPY --from=builder $BUILDDIR/super-indo-be super-indo-be
 COPY --from=builder $BUILDDIR/config/config.yaml $PROJECT_DIR/config/config.yaml
 #COPY --from=builder $BUILDDIR/database/migration $PROJECT_DIR/database/migration
 #COPY --from=builder $BUILDDIR/config/msg.yaml $PROJECT_DIR/config/msg.yaml
 
-CMD ["sh","-c", "/opt/go-boilerplate/go-boilerplate serve-http"]
+CMD ["sh","-c", "/opt/super-indo-be/super-indo-be serve-http"]

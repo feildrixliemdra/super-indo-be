@@ -1,11 +1,12 @@
 package router
 
 import (
-	"github.com/gin-gonic/gin"
-	"go-boilerplate/internal/config"
-	"go-boilerplate/internal/handler"
-	"go-boilerplate/internal/middleware"
 	"net/http"
+	"super-indo-be/internal/config"
+	"super-indo-be/internal/handler"
+	"super-indo-be/internal/middleware"
+
+	"github.com/gin-gonic/gin"
 )
 
 type router struct {

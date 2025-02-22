@@ -1,10 +1,11 @@
 package bootstrap
 
 import (
+	"super-indo-be/internal/config"
+	"super-indo-be/internal/handler"
+	"super-indo-be/internal/router"
+
 	"github.com/gin-gonic/gin"
-	"go-boilerplate/internal/config"
-	"go-boilerplate/internal/handler"
-	"go-boilerplate/internal/router"
 )
 
 func InitiateGinRouter(cfg *config.Config, handler *handler.Handler) *gin.Engine {
