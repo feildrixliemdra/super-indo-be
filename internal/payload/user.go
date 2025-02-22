@@ -8,6 +8,13 @@ type CreateUserRequest struct {
 	Password string `json:"password" binding:"required,min=5"`
 }
 
+type CreateUserResponse struct {
+	ID        uint64    `json:"id"`
+	Name      string    `json:"name"`
+	Email     string    `json:"email"`
+	CreatedAt time.Time `json:"created_at"`
+}
+
 type GetUserListRequest struct {
 }
 

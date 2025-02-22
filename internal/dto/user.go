@@ -7,9 +7,8 @@ import (
 
 func CreateUserPayloadToUserModel(p payload.CreateUserRequest) model.User {
 	return model.User{
-		Name:     p.Name,
-		Email:    p.Email,
-		Password: p.Password, // TODO: don't store plain password, need to encrypt
+		Name:  p.Name,
+		Email: p.Email,
 	}
 }
 

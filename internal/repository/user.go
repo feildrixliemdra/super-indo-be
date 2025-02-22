@@ -12,7 +12,7 @@ import (
 )
 
 type IUserRepository interface {
-	Create(ctx context.Context, user model.User) error
+	Create(ctx context.Context, user model.User) (id uint64, err error)
 	GetBy(ctx context.Context, usr model.User) (*model.User, error)
 	GetAll(ctx context.Context) ([]model.User, error)
 	Update(ctx context.Context, user model.User) error
@@ -52,7 +52,7 @@ func (r *user) DeleteByID(ctx context.Context, id uint64) (err error) {
 	return
 }
 
-func (r *user) Create(ctx context.Context, user model.User) (err error) {
+func (r *user) Create(ctx context.Context, user model.User) (id uint64, err error) {
 	query, args, err := sq.Insert(model.User{}.TableName()).
 		SetMap(
 			sq.Eq{
@@ -64,18 +64,26 @@ func (r *user) Create(ctx context.Context, user model.User) (err error) {
 			},
 		).
 		PlaceholderFormat(sq.Dollar).
+		Suffix("RETURNING id").
 		ToSql()
 
 	if err != nil {
-		return err
+		return 0, err
 	}
 
-	_, err = r.DB.ExecContext(ctx, query, args...)
+	result, err := r.DB.ExecContext(ctx, query, args...)
 	if err != nil {
-		return err
+		return 0, err
 	}
 
-	return
+	lastInsertID, err := result.LastInsertId()
+	if err != nil {
+		return 0, err
+	}
+
+	id = uint64(lastInsertID)
+
+	return id, err
 }
 
 func (r *user) GetBy(ctx context.Context, usr model.User) (*model.User, error) {
