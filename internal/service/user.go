@@ -44,7 +44,6 @@ func (s *user) Create(ctx context.Context, p payload.CreateUserRequest) (result 
 	usr := dto.CreateUserPayloadToUserModel(p)
 
 	// 3. hash password
-
 	hashedPassword, err := bcrypt.GenerateFromPassword([]byte(usr.Password), 10)
 	if err != nil {
 		return result, err

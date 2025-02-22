@@ -27,19 +27,6 @@ func NewUserHandler(cfg *config.Config, userService service.IUserService) IUserH
 	}
 }
 
-func (h *user) GetAll(c *gin.Context) {
-	result, err := h.UserService.GetList(c)
-	if err != nil {
-		log.Errorf("error get user list %v", err) // log error
-		util.ErrInternalResponse(c, err)
-
-		return
-	}
-
-	util.GeneralSuccessResponse(c, "success get user data", result)
-
-}
-
 func (h *user) GetDetail(c *gin.Context) {
 	token := util.ExtractToken(c)
 	user, err := util.ParseJWT(token, h.cfg.JWT.SecretKey)

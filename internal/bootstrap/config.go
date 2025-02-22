@@ -45,7 +45,6 @@ func NewConfig() *config.Config {
 			SecretKey: getRequiredString("JWT_SECRET_KEY"),
 		},
 	}
-	fmt.Printf("%+v\n", cfg)
 	return &cfg
 }
 
