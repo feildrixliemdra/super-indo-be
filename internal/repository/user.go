@@ -69,17 +69,10 @@ func (r *user) Create(ctx context.Context, user model.User) (id uint64, err erro
 		return 0, err
 	}
 
-	result, err := r.DB.ExecContext(ctx, query, args...)
+	err = r.DB.QueryRowxContext(ctx, query, args...).Scan(&id)
 	if err != nil {
 		return 0, err
 	}
-
-	lastInsertID, err := result.LastInsertId()
-	if err != nil {
-		return 0, err
-	}
-
-	id = uint64(lastInsertID)
 
 	return id, err
 }

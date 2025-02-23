@@ -25,7 +25,18 @@ func NewCategoryHandler(cfg *config.Config, service service.ICategoryService) IC
 	return &category{cfg: cfg, service: service}
 }
 
-// Create implements ICategoryHandler.
+// Create godoc
+// @Summary Create a new category
+// @Description Create a new category with the given name
+// @Tags Category
+// @Accept json
+// @Produce json
+// @Param Authorization header string true "Bearer JWT token" default "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImpvaG5kb2VAZ21haWwuY29tIiwiZXhwIjoxNzQwOTI1MjEwLCJ1c2VyX2lkIjo0fQ.pqtisYNaYFZYJF49SM2jiBBAsAKFY6ovCJeokcUZcjk"
+// @Param request body payload.CreateCategoryRequest true "Create Category Request"
+// @Success 200 {object} payload.Response{data=payload.CreateCategoryResponse} "Success create category"
+// @Failure 400 {object} payload.Response "Bad request"
+// @Failure 500 {object} payload.Response "Internal server error"
+// @Router /v1/categories [post]
 func (h *category) Create(c *gin.Context) {
 	var p payload.CreateCategoryRequest
 	if err := c.ShouldBindJSON(&p); err != nil {
@@ -47,7 +58,17 @@ func (h *category) Create(c *gin.Context) {
 	util.GeneralSuccessResponse(c, "success create category", res)
 }
 
-// GetAll implements ICategoryHandler.
+// GetAll godoc
+// @Summary Get all categories
+// @Description Get all categories with pagination
+// @Tags Category
+// @Accept json
+// @Produce json
+// @Param Authorization header string true "Bearer JWT token" default "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImpvaG5kb2VAZ21haWwuY29tIiwiZXhwIjoxNzQwOTI1MjEwLCJ1c2VyX2lkIjo0fQ.pqtisYNaYFZYJF49SM2jiBBAsAKFY6ovCJeokcUZcjk"
+// @Success 200 {object} payload.Response{data=[]payload.GetCategoryListResponse} "Success get all category"
+// @Failure 400 {object} payload.Response "Bad request"
+// @Failure 500 {object} payload.Response "Internal server error"
+// @Router /v1/categories [get]
 func (h *category) GetAll(c *gin.Context) {
 	res, err := h.service.GetAll(c)
 	if err != nil {

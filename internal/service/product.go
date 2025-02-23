@@ -24,7 +24,6 @@ func NewProductService(productRepository repository.IProductRepository) IProduct
 	}
 }
 
-// Create implements IProductService.
 func (s *product) Create(ctx context.Context, req payload.CreateProductRequest) (res payload.CreateProductResponse, err error) {
 	productModel := req.ToModel()
 
@@ -41,14 +40,11 @@ func (s *product) Create(ctx context.Context, req payload.CreateProductRequest) 
 		CategoryID:  productModel.CategoryID,
 		Image:       productModel.Image,
 		Stock:       productModel.Stock,
-		CreatedAt:   productModel.CreatedAt,
-		UpdatedAt:   productModel.UpdatedAt,
 	}
 
 	return res, nil
 }
 
-// GetAll implements IProductService.
 func (s *product) GetAll(ctx context.Context, req payload.GetProductListRequest) (res []payload.GetProductListResponse, totalData int64, err error) {
 	products, totalData, err := s.ProductRepository.GetAll(ctx, req)
 	if err != nil {
@@ -60,7 +56,6 @@ func (s *product) GetAll(ctx context.Context, req payload.GetProductListRequest)
 	return res, totalData, nil
 }
 
-// GetByID implements IProductService.
 func (s *product) GetByID(ctx context.Context, id uint64) (res payload.GetProductDetailResponse, err error) {
 	product, err := s.ProductRepository.GetByID(ctx, id)
 	if err != nil {

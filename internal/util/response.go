@@ -35,7 +35,7 @@ func ErrInternalResponse(c *gin.Context, err error) {
 		payload.Response{
 			Success: false,
 			Message: constant.InternalMessageErrorResponse,
-			Error:   err,
+			Error:   err.Error(),
 		},
 	)
 }

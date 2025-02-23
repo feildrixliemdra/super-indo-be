@@ -26,20 +26,18 @@ func (c *CreateProductRequest) ToModel() model.Product {
 }
 
 type CreateProductResponse struct {
-	ID          uint64    `json:"id"`
-	Name        string    `json:"name"`
-	Description string    `json:"description"`
-	Price       uint64    `json:"price"`
-	CategoryID  uint64    `json:"category_id"`
-	Image       string    `json:"image"`
-	Stock       uint64    `json:"stock"`
-	CreatedAt   time.Time `json:"created_at"`
-	UpdatedAt   time.Time `json:"updated_at"`
+	ID          uint64 `json:"id"`
+	Name        string `json:"name"`
+	Description string `json:"description"`
+	Price       uint64 `json:"price"`
+	CategoryID  uint64 `json:"category_id"`
+	Image       string `json:"image"`
+	Stock       uint64 `json:"stock"`
 }
 
 type GetProductListRequest struct {
-	Limit uint64 `json:"limit"`
-	Page  uint64 `json:"page"`
+	Limit uint64 `form:"limit"`
+	Page  uint64 `form:"page"`
 }
 
 type GetProductListResponse struct {

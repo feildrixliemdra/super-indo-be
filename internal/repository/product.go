@@ -2,6 +2,10 @@ package repository
 
 import (
 	"context"
+	"database/sql"
+	"errors"
+	"strings"
+	"super-indo-be/internal/errorcustom"
 	"super-indo-be/internal/model"
 	"super-indo-be/internal/payload"
 
@@ -25,7 +29,6 @@ func NewProductRepository(opt Option) IProductRepository {
 	}
 }
 
-// Create implements IProductRepository.
 func (r *product) Create(ctx context.Context, product model.Product) (id uint64, err error) {
 
 	q := sq.Insert(product.TableName()).
@@ -47,13 +50,15 @@ func (r *product) Create(ctx context.Context, product model.Product) (id uint64,
 
 	err = r.DB.QueryRowxContext(ctx, query, args...).Scan(&id)
 	if err != nil {
+		if strings.Contains(err.Error(), `violates foreign key constraint "products_category_id_fkey" (SQLSTATE 23503)`) {
+			return 0, errorcustom.ErrCategoryNotFound
+		}
 		return 0, err
 	}
 
 	return id, nil
 }
 
-// GetAll implements IProductRepository.
 func (r *product) GetAll(ctx context.Context, p payload.GetProductListRequest) (product []model.Product, totalData int64, err error) {
 
 	// get product list
@@ -80,6 +85,7 @@ func (r *product) GetAll(ctx context.Context, p payload.GetProductListRequest) (
 		Where(sq.Eq{"deleted_at": nil}).
 		PlaceholderFormat(sq.Dollar).
 		ToSql()
+
 	if err != nil {
 		return nil, 0, err
 	}
@@ -92,7 +98,6 @@ func (r *product) GetAll(ctx context.Context, p payload.GetProductListRequest) (
 	return product, totalData, nil
 }
 
-// GetByID implements IProductRepository.
 func (r *product) GetByID(ctx context.Context, id uint64) (*model.Product, error) {
 
 	var product model.Product
@@ -109,6 +114,9 @@ func (r *product) GetByID(ctx context.Context, id uint64) (*model.Product, error
 
 	err = r.DB.GetContext(ctx, &product, query, args...)
 	if err != nil {
+		if errors.Is(err, sql.ErrNoRows) {
+			return nil, nil
+		}
 		return nil, err
 	}
 

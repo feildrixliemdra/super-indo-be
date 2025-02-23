@@ -35,13 +35,9 @@ func (c *category) Create(ctx context.Context, p payload.CreateCategoryRequest) 
 		return res, errorcustom.ErrCategoryAlreadyExists
 	}
 
-	category := model.Category{
-		Name:        p.Name,
-		Code:        p.Code,
-		Description: p.Description,
-	}
+	categoryModel := p.ToModel()
 
-	id, err := c.CategoryRepository.Create(ctx, category)
+	id, err := c.CategoryRepository.Create(ctx, categoryModel)
 	if err != nil {
 		return res, err
 	}

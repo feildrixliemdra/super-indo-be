@@ -3,9 +3,9 @@ package payload
 type Response struct {
 	Success bool              `json:"success"`
 	Message string            `json:"message"`
-	Error   any               `json:"error,omitempty"`
+	Error   interface{}       `json:"error,omitempty"`
 	Errors  []ErrorValidation `json:"errors,omitempty"`
-	Data    any               `json:"data,omitempty"`
+	Data    interface{}       `json:"data,omitempty"`
 }
 
 type ListResponse struct {

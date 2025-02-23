@@ -18,3 +18,7 @@ new-db-migration:
 
 run-db-migration:
 	${GOCMD} run main.go db:migrate up
+
+
+swagger:
+	swag init -g internal/router/router.go --parseDependency --parseInternal

@@ -2,6 +2,8 @@ package repository
 
 import (
 	"context"
+	"database/sql"
+	"errors"
 	"super-indo-be/internal/model"
 
 	sq "github.com/Masterminds/squirrel"
@@ -16,36 +18,6 @@ type ICategoryRepository interface {
 
 type category struct {
 	DB *sqlx.DB
-}
-
-// GetBy implements ICategoryRepository.
-func (c *category) GetBy(ctx context.Context, category model.Category) (*model.Category, error) {
-	var result model.Category
-
-	q := sq.Select("id", "name", "code", "description", "created_at", "updated_at").
-		From(model.Category{}.TableName()).
-		Where(sq.Eq{"deleted_at": nil}).
-		PlaceholderFormat(sq.Dollar)
-
-	if category.ID > 0 {
-		q = q.Where(sq.Eq{"id": category.ID})
-	}
-
-	if category.Code != "" {
-		q = q.Where(sq.Eq{"code": category.Code})
-	}
-
-	query, args, err := q.ToSql()
-	if err != nil {
-		return nil, err
-	}
-
-	err = c.DB.GetContext(ctx, &result, query, args...)
-	if err != nil {
-		return nil, err
-	}
-
-	return &result, nil
 }
 
 func NewCategoryRepository(opt Option) ICategoryRepository {
@@ -72,17 +44,10 @@ func (c *category) Create(ctx context.Context, category model.Category) (id uint
 		return 0, err
 	}
 
-	result, err := c.DB.ExecContext(ctx, query, args...)
+	err = c.DB.QueryRowxContext(ctx, query, args...).Scan(&id)
 	if err != nil {
 		return 0, err
 	}
-
-	lastInsertID, err := result.LastInsertId()
-	if err != nil {
-		return 0, err
-	}
-
-	id = uint64(lastInsertID)
 
 	return id, nil
 }
@@ -107,4 +72,38 @@ func (c *category) GetAll(ctx context.Context) ([]model.Category, error) {
 	}
 
 	return categories, nil
+}
+
+// GetBy implements ICategoryRepository.
+func (c *category) GetBy(ctx context.Context, category model.Category) (*model.Category, error) {
+	var result model.Category
+
+	q := sq.Select("id", "name", "code", "description", "created_at", "updated_at").
+		From(model.Category{}.TableName()).
+		Where(sq.Eq{"deleted_at": nil}).
+		PlaceholderFormat(sq.Dollar)
+
+	if category.ID > 0 {
+		q = q.Where(sq.Eq{"id": category.ID})
+	}
+
+	if category.Code != "" {
+		q = q.Where(sq.Eq{"code": category.Code})
+	}
+
+	query, args, err := q.ToSql()
+	if err != nil {
+		return nil, err
+	}
+
+	err = c.DB.GetContext(ctx, &result, query, args...)
+	if err != nil {
+		if errors.Is(err, sql.ErrNoRows) {
+			return nil, nil
+		}
+
+		return nil, err
+	}
+
+	return &result, nil
 }

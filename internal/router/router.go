@@ -53,7 +53,9 @@ func (r *router) Init() {
 	r.rtr.Use(middleware.CORSMiddleware)
 
 	// Swagger
-	r.rtr.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerfiles.Handler))
+	if r.cfg.Swagger.IsEnabled {
+		r.rtr.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerfiles.Handler))
+	}
 
 	v1Group := r.rtr.Group("/v1")
 

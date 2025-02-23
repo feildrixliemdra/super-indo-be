@@ -6,6 +6,7 @@ type Config struct {
 	App     App     `mapstructure:"app" yaml:"app"`
 	Postgre Postgre `mapstructure:"postgre" yaml:"postgre"`
 	JWT     JWT     `mapstructure:"jwt" yaml:"jwt"`
+	Swagger Swagger `mapstructure:"swagger" yaml:"swagger"`
 }
 
 type App struct {
@@ -26,4 +27,8 @@ type Postgre struct {
 
 type JWT struct {
 	SecretKey string `mapstructure:"secret_key"`
+}
+
+type Swagger struct {
+	IsEnabled bool `mapstructure:"is_enabled" yaml:"is_enabled"`
 }
