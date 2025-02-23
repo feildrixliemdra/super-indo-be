@@ -56,11 +56,9 @@ func (r *user) Create(ctx context.Context, user model.User) (id uint64, err erro
 	query, args, err := sq.Insert(model.User{}.TableName()).
 		SetMap(
 			sq.Eq{
-				"email":      user.Email,
-				"name":       user.Name,
-				"password":   user.Password,
-				"created_at": "now()",
-				"updated_at": "now()",
+				"email":    user.Email,
+				"name":     user.Name,
+				"password": user.Password,
 			},
 		).
 		PlaceholderFormat(sq.Dollar).

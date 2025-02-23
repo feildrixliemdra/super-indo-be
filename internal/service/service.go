@@ -6,7 +6,8 @@ import (
 )
 
 type Service struct {
-	UserService IUserService
+	UserService     IUserService
+	CategoryService ICategoryService
 }
 
 type Option struct {
@@ -15,6 +16,7 @@ type Option struct {
 
 func InitiateService(cfg *config.Config, repository *repository.Repository) *Service {
 	return &Service{
-		UserService: NewUserService(repository.UserRepository),
+		UserService:     NewUserService(repository.UserRepository),
+		CategoryService: NewCategoryService(repository.CategoryRepository),
 	}
 }

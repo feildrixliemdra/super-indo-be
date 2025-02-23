@@ -2,7 +2,7 @@ package handler
 
 import (
 	"super-indo-be/internal/config"
-	"super-indo-be/internal/constant"
+	"super-indo-be/internal/errorcustom"
 	"super-indo-be/internal/payload"
 	"super-indo-be/internal/service"
 	"super-indo-be/internal/util"
@@ -70,7 +70,7 @@ func (a *auth) Register(c *gin.Context) {
 		Password: p.Password,
 	})
 	if err != nil {
-		if err == constant.ErrEmailAlreadyRegistered {
+		if err == errorcustom.ErrEmailAlreadyRegistered {
 			util.ErrBadRequestResponse(c, err.Error())
 			return
 		}

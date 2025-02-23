@@ -5,7 +5,8 @@ import (
 )
 
 type Repository struct {
-	UserRepository IUserRepository
+	UserRepository     IUserRepository
+	CategoryRepository ICategoryRepository
 }
 
 type Option struct {
@@ -14,6 +15,7 @@ type Option struct {
 
 func InitiateRepository(opt Option) *Repository {
 	return &Repository{
-		UserRepository: NewUserRepository(opt),
+		UserRepository:     NewUserRepository(opt),
+		CategoryRepository: NewCategoryRepository(opt),
 	}
 }

@@ -34,15 +34,14 @@ func (r *router) Init() {
 		})
 	})
 	v1Group := r.rtr.Group("/v1")
-
 	v1Group.POST("/login", r.handler.AuthHandler.Login)
 	v1Group.POST("/register", r.handler.AuthHandler.Register)
 
-	userRouter := v1Group.Group("/users")
+	userRouter := v1Group.Group("/users", middleware.JWTAuth(r.cfg.JWT.SecretKey))
 	userRouter.GET("/detail", r.handler.UserHandler.GetDetail)
 
-	//example of JWT middleware
-	authenticateHandler := r.rtr.Group("/authenticated")
-	authenticateHandler.Use(middleware.JWTAuth(r.cfg.JWT.SecretKey))
+	categoryRouter := v1Group.Group("/categories", middleware.JWTAuth(r.cfg.JWT.SecretKey))
+	categoryRouter.POST("", r.handler.CategoryHandler.Create)
+	categoryRouter.GET("", r.handler.CategoryHandler.GetAll)
 
 }

@@ -5,6 +5,7 @@ CREATE TABLE IF NOT EXISTS products (
                        name VARCHAR(255),
                        category_id bigint REFERENCES categories(id) ON DELETE CASCADE , 
                        description text , 
+                       image text,
                        price int,
                        stock int , 
                        created_at timestamp DEFAULT current_timestamp,

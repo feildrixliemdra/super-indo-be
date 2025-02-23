@@ -2,9 +2,8 @@ package service
 
 import (
 	"context"
-	"fmt"
-	"super-indo-be/internal/constant"
 	"super-indo-be/internal/dto"
+	"super-indo-be/internal/errorcustom"
 	"super-indo-be/internal/model"
 	"super-indo-be/internal/payload"
 	"super-indo-be/internal/repository"
@@ -36,8 +35,7 @@ func (s *user) Create(ctx context.Context, p payload.CreateUserRequest) (result 
 	}
 
 	if existUser != nil {
-		fmt.Println(existUser)
-		return result, constant.ErrEmailAlreadyRegistered
+		return result, errorcustom.ErrEmailAlreadyRegistered
 	}
 
 	// 2. transform create user request payload to user model
@@ -74,7 +72,7 @@ func (s *user) GetByEmail(ctx context.Context, email string) (result payload.Get
 	}
 
 	if usr == nil {
-		err = constant.ErrUserNotFound
+		err = errorcustom.ErrUserNotFound
 
 		return
 	}
@@ -89,7 +87,7 @@ func (s *user) GetByID(ctx context.Context, id uint64) (result payload.GetUserDe
 	}
 
 	if usr == nil {
-		err = constant.ErrUserNotFound
+		err = errorcustom.ErrUserNotFound
 
 		return
 	}

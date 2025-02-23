@@ -3,7 +3,7 @@ package handler
 import (
 	"errors"
 	"super-indo-be/internal/config"
-	"super-indo-be/internal/constant"
+	"super-indo-be/internal/errorcustom"
 	"super-indo-be/internal/service"
 	"super-indo-be/internal/util"
 
@@ -37,7 +37,7 @@ func (h *user) GetDetail(c *gin.Context) {
 
 	result, err := h.UserService.GetByID(c, user.UserID)
 	if err != nil {
-		if errors.Is(err, constant.ErrUserNotFound) {
+		if errors.Is(err, errorcustom.ErrUserNotFound) {
 			log.Warnf("user id not found %v", user.UserID)
 			util.ErrBadRequestResponse(c, err.Error())
 
