@@ -1,6 +1,6 @@
-# Go Boilerplate
+# Super Indo BE
 
-A boilerplate for building Go applications quickly and effectively. This template provides a structured foundation with essential libraries, configurations, and setup to speed up your development process in Go.
+Super Indo BE is a backend application for Super Indo.
 
 ## Features
 
@@ -8,7 +8,10 @@ A boilerplate for building Go applications quickly and effectively. This templat
 - Environment Management: .env configuration for managing environment variables.
 - Dependency Management: Uses Go Modules for easy dependency tracking.
 - Docker Support: Dockerized setup for easier deployment and consistency across environments.
-- Testing: Basic setup for unit testing.
+
+## Live API Documentation
+
+[Swagger UI](https://super-indo-be-ldvty.ondigitalocean.app/swagger/index.html)
 
 ## Getting Started
 
@@ -33,16 +36,20 @@ A boilerplate for building Go applications quickly and effectively. This templat
    ```sh
     make env
     or
-    cp config/config.yaml.example config/config.yaml  #fill in necessary values. #fill in necessary values.
+    cp .env.example .env  #fill in necessary values. #fill in necessary values.
    ```
 4. Change git remote url to avoid accidental pushes to base project
    ```sh
    git remote set-url origin your_github_username/repo_name
    git remote -v # confirm the changes
    ```
-5. Run the application:
+5. Run database migration
    ```sh
-   go run main.go
+   make migrate
+   ```
+6. Run the application:
+   ```sh
+   go run main.go serve-http
    ```
    Or Using Docker
    ```sh
@@ -107,26 +114,6 @@ A boilerplate for building Go applications quickly and effectively. This templat
 - `internal/middleware`
 
   Defines custom middleware functions for intercepting and processing requests/responses, such as authentication, authorization, logging, error handling, and rate limiting. Middleware can enhance request handling by adding cross-cutting functionality across endpoints.
-
-## Running Tests
-
-To run tests:
-
-```sh
-go test ./...
-```
-
-<!-- ROADMAP -->
-
-## Roadmap
-
-- [x] Setup base folder structure
-- [x] Setup REST handler
-- [x] Setup Request Payload Validator
-- [ ] Setup i8n response
-- [ ] Setup gRPC handler
-
-<!-- CONTACT -->
 
 ## Contact
 
