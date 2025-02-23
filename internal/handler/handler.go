@@ -9,6 +9,7 @@ type Handler struct {
 	UserHandler     IUserHandler
 	AuthHandler     IAuthHandler
 	CategoryHandler ICategoryHandler
+	ProductHandler  IProductHandler
 }
 
 func InitiateHandler(cfg *config.Config, services *service.Service) *Handler {
@@ -16,5 +17,6 @@ func InitiateHandler(cfg *config.Config, services *service.Service) *Handler {
 		UserHandler:     NewUserHandler(cfg, services.UserService),
 		AuthHandler:     NewAuthHandler(cfg, services.UserService),
 		CategoryHandler: NewCategoryHandler(cfg, services.CategoryService),
+		ProductHandler:  NewProductHandler(cfg, services.ProductService),
 	}
 }

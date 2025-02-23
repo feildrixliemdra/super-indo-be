@@ -19,6 +19,17 @@ func GeneralSuccessResponse(c *gin.Context, message string, data any) {
 	})
 }
 
+func GeneralSuccessListResponse(c *gin.Context, message string, data any, totalData int64, totalPage int64, currentPage int64) {
+	c.JSON(http.StatusOK, payload.ListResponse{
+		Success:     true,
+		Message:     message,
+		Data:        data,
+		TotalData:   totalData,
+		TotalPage:   totalPage,
+		CurrentPage: currentPage,
+	})
+}
+
 func ErrInternalResponse(c *gin.Context, err error) {
 	c.AbortWithStatusJSON(http.StatusInternalServerError,
 		payload.Response{
