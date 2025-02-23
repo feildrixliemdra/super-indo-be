@@ -8,6 +8,7 @@ type Repository struct {
 	UserRepository     IUserRepository
 	CategoryRepository ICategoryRepository
 	ProductRepository  IProductRepository
+	CartRepository     ICartRepository
 }
 
 type Option struct {
@@ -19,5 +20,6 @@ func InitiateRepository(opt Option) *Repository {
 		UserRepository:     NewUserRepository(opt),
 		CategoryRepository: NewCategoryRepository(opt),
 		ProductRepository:  NewProductRepository(opt),
+		CartRepository:     NewCartRepository(opt),
 	}
 }

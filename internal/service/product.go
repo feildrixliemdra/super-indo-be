@@ -6,6 +6,8 @@ import (
 	"super-indo-be/internal/errorcustom"
 	"super-indo-be/internal/payload"
 	"super-indo-be/internal/repository"
+
+	log "github.com/sirupsen/logrus"
 )
 
 type IProductService interface {
@@ -29,6 +31,7 @@ func (s *product) Create(ctx context.Context, req payload.CreateProductRequest) 
 
 	id, err := s.ProductRepository.Create(ctx, productModel)
 	if err != nil {
+		log.Errorf("error create product: %v", err)
 		return res, err
 	}
 
@@ -48,6 +51,7 @@ func (s *product) Create(ctx context.Context, req payload.CreateProductRequest) 
 func (s *product) GetAll(ctx context.Context, req payload.GetProductListRequest) (res []payload.GetProductListResponse, totalData int64, err error) {
 	products, totalData, err := s.ProductRepository.GetAll(ctx, req)
 	if err != nil {
+		log.Errorf("error get all product: %v", err)
 		return res, 0, err
 	}
 
@@ -59,6 +63,7 @@ func (s *product) GetAll(ctx context.Context, req payload.GetProductListRequest)
 func (s *product) GetByID(ctx context.Context, id uint64) (res payload.GetProductDetailResponse, err error) {
 	product, err := s.ProductRepository.GetByID(ctx, id)
 	if err != nil {
+		log.Errorf("error get product by id: %v", err)
 		return res, err
 	}
 

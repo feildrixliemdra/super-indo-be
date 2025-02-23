@@ -9,6 +9,7 @@ type Service struct {
 	UserService     IUserService
 	CategoryService ICategoryService
 	ProductService  IProductService
+	CartService     ICartService
 }
 
 type Option struct {
@@ -20,5 +21,6 @@ func InitiateService(cfg *config.Config, repository *repository.Repository) *Ser
 		UserService:     NewUserService(repository.UserRepository),
 		CategoryService: NewCategoryService(repository.CategoryRepository),
 		ProductService:  NewProductService(repository.ProductRepository),
+		CartService:     NewCartService(repository.CartRepository),
 	}
 }

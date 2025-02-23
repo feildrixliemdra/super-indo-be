@@ -44,6 +44,9 @@ func NewConfig() *config.Config {
 		JWT: config.JWT{
 			SecretKey: getRequiredString("JWT_SECRET_KEY"),
 		},
+		Swagger: config.Swagger{
+			IsEnabled: getRequiredBool("SWAGGER_IS_ENABLED"),
+		},
 	}
 	return &cfg
 }

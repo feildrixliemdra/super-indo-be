@@ -101,7 +101,7 @@ func (r *product) GetAll(ctx context.Context, p payload.GetProductListRequest) (
 func (r *product) GetByID(ctx context.Context, id uint64) (*model.Product, error) {
 
 	var product model.Product
-	q := sq.Select("id", "name", "description", "price", "category_id", "image", "stock").
+	q := sq.Select("id", "name", "description", "price", "category_id", "image", "stock", "created_at", "updated_at").
 		From(model.Product{}.TableName()).
 		Where(sq.Eq{"id": id}).
 		Where(sq.Eq{"deleted_at": nil}).

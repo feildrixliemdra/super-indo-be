@@ -6,6 +6,8 @@ import (
 	"super-indo-be/internal/model"
 	"super-indo-be/internal/payload"
 	"super-indo-be/internal/repository"
+
+	log "github.com/sirupsen/logrus"
 )
 
 type ICategoryService interface {
@@ -28,6 +30,7 @@ func (c *category) Create(ctx context.Context, p payload.CreateCategoryRequest) 
 
 	existCategory, err := c.CategoryRepository.GetBy(ctx, model.Category{Code: p.Code})
 	if err != nil {
+		log.Errorf("error get category by code: %v", err)
 		return res, err
 	}
 
@@ -39,6 +42,7 @@ func (c *category) Create(ctx context.Context, p payload.CreateCategoryRequest) 
 
 	id, err := c.CategoryRepository.Create(ctx, categoryModel)
 	if err != nil {
+		log.Errorf("error create category: %v", err)
 		return res, err
 	}
 
@@ -57,6 +61,7 @@ func (c *category) GetAll(ctx context.Context) ([]payload.GetCategoryListRespons
 	res := []payload.GetCategoryListResponse{}
 	category, err := c.CategoryRepository.GetAll(ctx)
 	if err != nil {
+		log.Errorf("error get all category: %v", err)
 		return nil, err
 	}
 

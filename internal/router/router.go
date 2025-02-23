@@ -77,4 +77,9 @@ func (r *router) Init() {
 	productRouter.POST("", r.handler.ProductHandler.Create)
 	productRouter.GET("", r.handler.ProductHandler.GetAll)
 	productRouter.GET("/:id", r.handler.ProductHandler.GetByID)
+
+	// Cart Route
+	cartRouter := v1Group.Group("/carts", middleware.JWTAuth(r.cfg.JWT.SecretKey))
+	cartRouter.POST("", r.handler.CartHandler.Create)
+	cartRouter.GET("", r.handler.CartHandler.GetAll)
 }
