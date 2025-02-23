@@ -17,9 +17,11 @@ COPY . .
 
 
 # application builder step
-RUN go mod tidy && go mod download && go mod vendor
-RUN eval $GO_BUILD_COMMAND
-
+RUN go install -v github.com/swaggo/swag/cmd/swag@v1.7.8 && \
+    swag init -g internal/router/router.go && \
+    go mod download && \
+    go mod tidy && \
+    CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o super-indo-be .
 
 # STEP 2 build a small image
 # Set up the final (deployable/runtime) image.
@@ -30,7 +32,7 @@ FROM alpine:3.10.2
 RUN apk --no-cache update && apk --no-cache  add  ca-certificates bash jq curl
 
 ENV BUILDDIR=/go/src/github.com/feildrixliemdra/super-indo-be
-ENV PROJECT_DIR=/opt/super-indo-be
+ENV PROJECT_DIR=/opt/github.com/feildrixliemdra/super-indo-be
 
 # Setting timezone
 ENV TZ=Asia/Jakarta
@@ -38,14 +40,19 @@ RUN apk add -U tzdata
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 #create project directory
-RUN mkdir -p $PROJECT_DIR/config
-RUN #mkdir -p $PROJECT_DIR/database/migration
+RUN mkdir -p $PROJECT_DIR/database/migration
 
 WORKDIR $PROJECT_DIR
 
-COPY --from=builder $BUILDDIR/super-indo-be super-indo-be
-COPY --from=builder $BUILDDIR/config/config.yaml $PROJECT_DIR/config/config.yaml
-#COPY --from=builder $BUILDDIR/database/migration $PROJECT_DIR/database/migration
-#COPY --from=builder $BUILDDIR/config/msg.yaml $PROJECT_DIR/config/msg.yaml
+COPY --from=builder $BUILDDIR/ $PROJECT_DIR/
+COPY --from=builder $BUILDDIR/database/migration $PROJECT_DIR/database/migration
 
-CMD ["sh","-c", "/opt/super-indo-be/super-indo-be serve-http"]
+
+EXPOSE 8080
+RUN chmod +x super-indo-be
+
+# Add the current directory to PATH
+ENV PATH="$PROJECT_DIR:$PATH"
+
+ENTRYPOINT ["super-indo-be", "serve-http"]
+
