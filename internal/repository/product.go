@@ -30,7 +30,6 @@ func NewProductRepository(opt Option) IProductRepository {
 }
 
 func (r *product) Create(ctx context.Context, product model.Product) (id uint64, err error) {
-
 	q := sq.Insert(product.TableName()).
 		SetMap(sq.Eq{
 			"name":        product.Name,
@@ -60,9 +59,8 @@ func (r *product) Create(ctx context.Context, product model.Product) (id uint64,
 }
 
 func (r *product) GetAll(ctx context.Context, p payload.GetProductListRequest) (product []model.Product, totalData int64, err error) {
-
 	// get product list
-	q := sq.Select("id", "name", "description", "price", "category_id", "image", "stock").
+	q := sq.Select("id", "name", "description", "price", "category_id", "image", "stock", "created_at", "updated_at").
 		From(model.Product{}.TableName()).
 		Where(sq.Eq{"deleted_at": nil}).
 		Limit(p.Limit).
@@ -99,7 +97,6 @@ func (r *product) GetAll(ctx context.Context, p payload.GetProductListRequest) (
 }
 
 func (r *product) GetByID(ctx context.Context, id uint64) (*model.Product, error) {
-
 	var product model.Product
 	q := sq.Select("id", "name", "description", "price", "category_id", "image", "stock", "created_at", "updated_at").
 		From(model.Product{}.TableName()).
